@@ -71,8 +71,8 @@ def run_validation(model, validation_ds, tokenizer_src, tokenizer_trg, max_len, 
             
             model_output = greedy_decode(model, encoder_input, encoder_mask, tokenizer_src, tokenizer_trg, max_len, device)
             
-            source_text = batch["src_text"][0]
-            target_text = batch["trg_text"][0]
+            source_text = batch["text_src"][0]
+            target_text = batch["text_trg"][0]
             model_output_text = tokenizer_trg.decode(model_output.detach().cpu().numpy())
             
             source_texts.append(source_text)
