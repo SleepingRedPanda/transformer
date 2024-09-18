@@ -51,7 +51,7 @@ def greedy_decode(model, source, source_mask, tokenizer_src, tokenizer_trg, max_
     
     return decoder_input.squeeze(0)
     
-def run_validation(model, validation_ds, tokenizer_src, tokenizer_trg, max_len, device, print_msg, global_state, writer, num_exampes=2):
+def run_validation(model, validation_ds, tokenizer_src, tokenizer_trg, max_len, device, print_msg, global_step, writer, num_exampes=2):
     model.eval()
     count = 0
     
