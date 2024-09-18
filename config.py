@@ -20,7 +20,6 @@ def get_config():
 
 
 def get_weigths_path(config, epoch):
-    model_folder = config['model_folder']
-    model_basename = config['model_basename']
-    model_filename = f"{model_basename}{epoch}.pt"
-    return Path('.' / model_folder / model_filename)
+    model_folder = f"{config['datasource']}_{config['model_folder']}"
+    model_filename = f"{config['model_basename']}{epoch}.pt"
+    return str(Path('.') / model_folder / model_filename)
