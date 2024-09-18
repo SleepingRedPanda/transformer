@@ -9,6 +9,7 @@ def get_config():
         'lang_src': 'en',
         'lang_trg': 'ru',
         'seq_len': 350,
+        'datasource': 'opus_books',
         'd_model': 512,
         'batch_size': 32,
         'model_folder': 'weights',
