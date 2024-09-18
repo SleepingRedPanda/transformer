@@ -14,12 +14,14 @@ class BilingualDataset(Dataset):
         self.tokenizer_trg = tokenizer_trg
         self.lang_src = lang_src
         self.lang_trg = lang_trg
+        
+        self.seq_len = seq_len
 
-        self_sos_token = torch.tensor(
+        self.sos_token = torch.tensor(
             [tokenizer_src.token_to_id("[SOS]")], dtype=torch.int64)
-        self_eos_token = torch.tensor(
+        self.eos_token = torch.tensor(
             [tokenizer_src.token_to_id("[EOS]")], dtype=torch.int64)
-        self_pad_token = torch.tensor(
+        self.pad_token = torch.tensor(
             [tokenizer_src.token_to_id("[PAD]")], dtype=torch.int64)
 
     def __len__(self):
@@ -78,7 +80,7 @@ class BilingualDataset(Dataset):
             "encoder_input": encoder_input, # [seq_len]
             "decoder_input": decoder_input, # [seq_len]
             "encoder_mask": (encoder_input != self.pad_token).unsqueeze(0).unsqueeze(0).int(), # (1, 1, seq_len)
-            "decoder_mask": (decoder_input != self.pad_token).unsqueeze(0).unsqueeze(0).int() % causal_mask(decoder_input.size(0)), # (1, seq_len) & (1, seq_len, seq_len)
+            "decoder_mask": (decoder_input != self.pad_token).unsqueeze(0).unsqueeze(0).int() & causal_mask(decoder_input.size(0)), # (1, seq_len) & (1, seq_len, seq_len)
             "label": label, # [seq_len]
             "text_src": text_src,
             "text_trg": text_trg
